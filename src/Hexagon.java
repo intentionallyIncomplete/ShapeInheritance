@@ -1,30 +1,42 @@
 import java.awt.Graphics;
 import java.awt.Polygon;
 
-/****************************************************/
-/* This hexagon class actually uses the same values */
-/* as a circle but the simple difference is in the 	*/
-/* draw method using the for-loop to change the		*/
-/* angle at which the next line will be directed to */
-/* be drawn. */
-/****************************************************/
-public class Hexagon extends Shape {
-	private int r;
 
+/**
+ * Class Description
+ * @author Ian Bryan
+ * @version 11/01/2018
+ * 
+ * Hexagon is a Shape and inherits all public modules and data from the super class
+ * Shape(). 
+ */
+public class Hexagon extends Shape {
+	
+	/**
+	 * 
+	 */
+	private int r;
+	/**
+	 * @param x
+	 * @param y
+	 * @param r
+	 * 
+	 */
 	public Hexagon(int x, int y, int r){
 		super(x,y);
 		this.r = r;
 	}
-	/****************************************************/
-	/* 						Getter(s)					*/
-	/****************************************************/
+
+	/**
+	 * @return Return the present Hexagon's radius (r) value.
+	 */
 	public int getR(){
-		return r;
+		return this.r;
 	}
 
-	/****************************************************/
-	/* 						Setter(s)					*/
-	/****************************************************/
+	/**
+	 * @param r
+	 */
 	public void setR(int r){
 		if(r > 0){
 			this.r = r;
