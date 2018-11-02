@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Polygon;
 
 
@@ -36,20 +37,19 @@ public class Hexagon extends Shape {
 
 	/**
 	 * @param r
+	 * 
 	 */
 	public void setR(int r){
 		if(r > 0){
 			this.r = r;
 		}else{
-			System.out.println("error setting the radius");
+			System.out.println("The radius cannot be less than or equal to 0");
 		}
 	}
 
-	/****************************************************/
-	/* TEXT HERE */
-	/****************************************************/
 	public void draw(Graphics g){
-		Graphics g2d = (Graphics) g;
+		//Casting object type of Graph
+		Graphics2D g2d = (Graphics2D) g;
 		
 		final int x = getX();
 		final int y = getY();

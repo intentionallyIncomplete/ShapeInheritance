@@ -1,142 +1,145 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.geom.Ellipse2D;
 
-/****************************************************/
-/* The "stars" class draws a star to the screen. The*/
-/* The basic concept is that the program will begin	*/
-/* drawing at the given x,y coordinates	and then	*/
-/* move to the next x,y coordinate pair and make a	*/
-/* line to connect the two points.					*/
-/****************************************************/
-
+/**
+ * Class Description:
+ * @author Ian Bryan
+ * @version 11/1/2018
+ * 
+ * Star class draws a single triangle to the screen who's base is on a circle
+ * and repeats the drawing process until a certain number of "draw" interactions
+ * are complete.
+ */
 public class Stars extends Shape{
 	private int startAngle;
-	//private int arcAngle;
 	private int midSecX;
 	private int midSecY;
-	int radius[] = {150, 50, 100, 50};
+	private int radius[] = {150, 50, 100, 50};
 
-	/* final for the number of 'points' of the star
-	 * these points are not just the parts that make the 'tops' of each triangle
-	 * but rather the number of times the program will use the startAngle. 
-	 */ 
+	//The total number of points to use to create a star
+	//Ex: 12 = 6 points on a star.
 	public static final int TOTAL_POINTS = 12; 
 
-	/* the two arg ctor will simply send the x,y coordinate values
-	 * to the super class (Shape) to be added to the array of Star
-	 * staring coordinate pairs in PloyDemo.
+	/**
+	 * @param x
+	 * @param y
+	 * 
+	 * Constructor takes only X and Y pair values.
+	 * Parameters are handed to super class.
 	 */
-	public Stars(int x, int y){
-		super(x, y);
-	}
+	public Stars(int x, int y){	super(x, y);	}
 
-	/* this is the ctor that is used to create a Star shape from the
-	 * PloyDemo driver class. the x,y starting points are submitted
-	 * to the super class (Shape) and the startAngle will determine
-	 * the curve of the star's outer angles. 
-	 * The midSecX and midSecY will set the center of the 'points' 
-	 * of the Star shape. That is to say, there is a starting x,y 
-	 * coordinate and the Star will then have its own "center" with
-	 * a corresponding middle section (midSec) x,y coordinate position.
+	/**
+	 * @param x
+	 * @param y
+	 * @param startAngle
+	 * @param midSecX
+	 * @param midSecY
+	 * 
+	 * X and Y values are handed to the super class Shape().java for processing.
+	 * startAngle and it's two midpoints (midSecX, midSecY) are assigned.
 	 */
 	public Stars(int x, int y, int startAngle, int midSecX, int midSecY){
 		super(x,y);
-		this.startAngle = startAngle;
+		if(startAngle > 0 || startAngle > 360) {
+			System.out.println("Cannot start at an angle larger than 360");
+		}else {
+			this.startAngle = startAngle;
+		}
 		this.midSecX = midSecX;
 		this.midSecY = midSecY;
 	}
 
-	/****************************************************/
-	/* 						Getters						*/
-	/****************************************************/
-	public int getStartAngle(){
-		return startAngle;
-	}
+	/**
+	 * @return Returns the degree of the starting angle for the line to be drawn from
+	 */
+	public int getStartAngle(){	return startAngle;	}
 
-	public int getMidSecX(){
-		return midSecX;
-	}
+	/**
+	 * @return Returns the value of the distance between the center point
+	 * and the latest X,Y coordinate pair of the latest point.
+	 */
+	public int getMidSecX(){	return midSecX;	}
 
-	public int getMidSecY(){
-		return midSecY;
-	}
+	/**
+	 * @return Returns the value of the Y point between the point of the star
+	 * and the center of the circle.
+	 */
+	public int getMidSecY(){	return midSecY;	}
 
-	/****************************************************/
-	/* 						Setters						*/
-	/****************************************************/
-	/* a little error checking in this setter for negative
-	 * numbers. Just want to be sure that the angle that's set
-	 * to create the steepness of the Star is not invalid (negative
+	/**
+	 * @param startAngle
+	 * When if or else is satisfied, an execution of either a print statement with an error 
+	 * or assignment to startAngle will happen.
 	 */
 	public void setStartAngle(int startAngle){
 		if(startAngle > 0){
 			this.startAngle = startAngle;
+		}else if(startAngle > 360){
+			System.out.println("Cannot start at an angle larger than 360");
 		}else{
-			System.out.println("error setting start angle");
+			System.out.println("Starting angle degree must be non-negative");
 		}
 	}
 
-	/* this setter here is the for center X coordinate
-	 * of the Star. Since a star has a circle in the middle
-	 * there must be a center x,y coordinate pair for each
-	 * point on the Star to be drawn from the same originating
-	 * position
+	/**
+	 * @param midSecX
+	 * @see getMidSecY()
 	 */
 	public void setMidSecX(int midSecX){
 		if(midSecX > 0){
 			this.midSecX = midSecX;
 		}else{
-			System.out.println("error setting the center X coordinate");
+			System.out.println("Midpoints cannot be non-positive");
 		}
 	}
 
-	/* this setter here works on the same logic as the setter above */
+	/**
+	 * @param midSecY
+	 * @see setMidSecX(int)
+	 */
 	public void setMidSecY(int midSecY){
 		if(midSecY > 0){
 			this.midSecY = midSecY;
 		}else{
-			System.out.println("error setting the center Y coordinate");
+			System.out.println("Midpoints cannot be non-positive");
 		}
 	}
 
-	/****************************************************/
-	/* This method overrides the draw() method from the */
-	/* super class (Shape) and draws a Star using some	*/
-	/* math that defines the way to draw a line between	*/
-	/* points of the Star. the xCenter,yCenter are the	*/
-	/* "base" of the Star object and are used to center */
-	/* the origin of the Star so that each point is drawn*/
-	/* equidistant from these coordinates.				*/
-	/****************************************************/
+	/**
+	 * xCenter 
+	 * yCenter are the"base" of the Star object and are used to center 
+	 * the origin of the Star so that each point is drawn
+	 * equal distance from these coordinates.
+	 */
 	public void draw(Graphics g){
-		Graphics g2d = (Graphics) g;
+		Graphics2D g2d = (Graphics2D) g;
 
 		final int xCenter = getMidSecX();
 		final int yCenter = getMidSecY();
 
+		int[] xs = new int[TOTAL_POINTS];
+		int[] ys = new int[TOTAL_POINTS];
 
-		int[] xs = new int[TOTAL_POINTS]; //array the size of the total points to be used (12)
-		int[] ys = new int[TOTAL_POINTS]; //same as above, both arrays need to be the same size
-		//to be sure the triangle draws the same number of sides for each part of the Star
-
-		//logic here originated from
-		//https://stackoverflow.com/questions/16327588/how-to-make-star-shape-in-java
-		//for the x and y coordinate handling for drawing each new "point" on the star
-		//in range of the total number of points that will be need to draw the Star
-		//iterate over each one while setting the x coordinate to the point adjacent to
-		//the hypotenuse and the y coordinate to the next side that's also adjacent
-		//to the hypotenuse. 
+		/**logic here originated from
+		 * https://stackoverflow.com/questions/16327588/how-to-make-star-shape-in-java
+		 * for the x and y coordinate handling for drawing each new "point" on the star
+		 * in range of the total number of points that will be need to draw the Star
+		 * iterate over each one while setting the x coordinate to the point adjacent to
+		 * the hypotenuse and the y coordinate to the next side that's also adjacent
+		 * to the hypotenuse.
+		 */
 		for (int k=0; k<TOTAL_POINTS; k++)
 		{
 			int i = (int) k;
 			double x = Math.cos(k*((2*Math.PI)/10))*radius[i % 4];
 			double y = Math.sin(k*((2*Math.PI)/10))*radius[i % 4];
 
-			xs[i] = (int) x + xCenter; //add 
+			xs[i] = (int) x + xCenter;
 			ys[i] = (int) y + yCenter;
 		}
-		g2d.drawPolygon(xs, ys, TOTAL_POINTS); //similar to other draw method calls by setting the
-		//args to the x, y, and number of points
+		g2d.drawPolygon(xs, ys, TOTAL_POINTS);
 	}
 }

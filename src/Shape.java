@@ -1,31 +1,64 @@
 import java.awt.*;
-
-/* Class Shape
- *
- * By Rob Nash
+/**
+ * Class Description:
+ * @author Ian Bryan
+ * @version 11/01/2018
  * 
- * This is the superclass in a hierarchy of shapes that you have to construct
+ * Super class to all shapes created from this structure.
  */
-
-//the superclass in our inheritance hierarchy
-//all "common" features, functions and data should go here
-//for example, all shapes in Java2D have a x,y that declares their position
-//and many of the shapes exposed have a width and a height (but not all, so we didn't put width and height here)
-//note that this class is mostly empty, as there is no algorithm generic enough to guess an arbitrary shape's area (future subclasses must override getArea() to provide something reasonable)
-//also, the draw method is empty too, as we don't know what shape to draw here! (again, our subclasses will need to replace this method with one that actually draws things)
 class Shape extends Object {
+	/**
+	 * Class data members
+	 * */
 	private int x = 0;
 	private int y = 0;
+	Color myColor = new Color(214,21,37);
 	
+	/**
+	 * @param a
+	 * @param b
+	 * 
+	 * Assigns x,y values from handed a,b coordinate plane.
+	 */
 	public Shape( int a, int b ) {
-		x=a;
-		y=b;
+		x = a;
+		y = b;
 	}
 	
+	/**
+	 * @return
+	 * Returns -1 and is overridden by subclasses to generate
+	 * a value for the subclass's shape.
+	 */
 	public double getArea(){ return -1; }
 	
+	/**
+	 * @param g
+	 * Used to override and draw graphics on screen in JPanel.
+	 */
 	public void draw( Graphics g ){}
 	
+	/*Getters for values of X and Y*/
+	/**
+	 * @return Returns x-coordinate value within the domain of x-values for the present
+	 * shape.
+	 */
 	public int getX() { return x; }
+	/**
+	 * @return Returns the y-coord value within the range of y-values for the present
+	 * shape.
+	 */
 	public int getY() { return y; }
+	
+	/*Setters for X and Y values*/
+	/**
+	 * @param x
+	 * Assign x-value from construtor
+	 */
+	public void setX(int x) {	this.x = x;	}
+	/**
+	 * @param y
+	 * Assign y-value from constructor
+	 */
+	public void setY(int y) {	this.y = y;	}
 }
