@@ -1,7 +1,5 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.geom.Ellipse2D;
 
 /**
  * Class Description:
@@ -43,7 +41,7 @@ public class Stars extends Shape{
 	 */
 	public Stars(int x, int y, int startAngle, int midSecX, int midSecY){
 		super(x,y);
-		if(startAngle > 0 || startAngle > 360) {
+		if(startAngle < 0 || startAngle > 360) {
 			System.out.println("Cannot start at an angle larger than 360");
 		}else {
 			this.startAngle = startAngle;

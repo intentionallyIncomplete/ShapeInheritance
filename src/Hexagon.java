@@ -2,7 +2,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
-
 /**
  * Class Description
  * @author Ian Bryan
@@ -12,20 +11,22 @@ import java.awt.Polygon;
  * Shape(). 
  */
 public class Hexagon extends Shape {
-	
-	/**
-	 * 
-	 */
+	/*Class data members*/
 	private int r;
 	/**
 	 * @param x
 	 * @param y
 	 * @param r
 	 * 
+	 * Constructor takes in X and Y coordinate pair along with radius.
 	 */
 	public Hexagon(int x, int y, int r){
 		super(x,y);
-		this.r = r;
+		if(r < 0) {
+			System.out.println("Radius must be non-negative");
+		}else {
+			this.r = r;
+		}
 	}
 
 	/**
@@ -37,7 +38,7 @@ public class Hexagon extends Shape {
 
 	/**
 	 * @param r
-	 * 
+	 * Sets the radius of the present radius of the present hexagon.
 	 */
 	public void setR(int r){
 		if(r > 0){
@@ -48,17 +49,18 @@ public class Hexagon extends Shape {
 	}
 
 	public void draw(Graphics g){
-		//Casting object type of Graph
+		//Casting object type of Graphics to Graphics2D
 		Graphics2D g2d = (Graphics2D) g;
 		
 		final int x = getX();
 		final int y = getY();
-		final int r = getR();
-
-		//found this logic here. I was missing the casting
-		//and the way to create the offsets for each new
-		//x,y coordinate pair to draw the next line from.
-		//https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=0ahUKEwjbj_qdruvaAhWJ5YMKHdHSCrsQFgg4MAI&url=http%3A%2F%2Fheuristic.kaist.ac.kr%2Fcylee%2Fxwireless%2FHexagonal%2FHexagon.java&usg=AOvVaw0BfAbJUJL50KkmlHldr52e
+		final int r = getR(); //radius
+		
+		/**
+		 * Creates a new Polygon object and assigns it with values from the for-loop
+		 * The for-loop will generate two coordinate pairs each iteration
+		 * and assign them as a single pair to the Polygon object.
+		 */
 		Polygon p = new Polygon();
 		for (int i=0;i<6;i++){
 			p.addPoint(

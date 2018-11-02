@@ -74,7 +74,7 @@ class PolyDemo extends JFrame {
 		 * for scaling to t[0 <= getRandInt() <= 200]
 		 */
 		public int getRandInt() {
-			return ( (int) ( Math.random() * 200 ) );	
+			return ( (int) ( Math.random() * 200 ) );
 		}
 
 		/**
@@ -85,18 +85,14 @@ class PolyDemo extends JFrame {
 			final int x = getRandInt();
 			final int y = getRandInt();
 
-			/*
-			 * 
-			 * 
-			 * */
 			switch( ( int )(Math.random() * 4) ) {
-			case 0: 	retVal = new Stars( x, y, getRandInt(), getRandInt(), getRandInt());
+			case 0: 	retVal = new Hexagon( x, y, getRandInt());
 			break;
-			case 1: 	retVal = new Stars( x, y, getRandInt(), 60, 60);
+			case 1: 	retVal = new Hexagon( x, y, getRandInt());
 			break;
-			case 2: 	retVal = new Stars( x, y, getRandInt(), 150, 150);
+			case 2: 	retVal = new Hexagon( x, y, getRandInt());
 			break;
-			case 3: 	retVal = new Stars( x, y, getRandInt(), 100, 100);
+			case 3: 	retVal = new Hexagon( x, y, getRandInt());
 			break;				
 			}
 
